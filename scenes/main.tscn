@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://cxotnxd5ip0os"]
+
+[ext_resource type="Texture2D" uid="uid://dvvtj5gxjbgwj" path="res://assets/texture_07.png" id="1_lkl68"]
+[ext_resource type="Texture2D" uid="uid://fg6a3c4oalar" path="res://assets/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="2_73rcq"]
+[ext_resource type="PackedScene" uid="uid://bxaspchhx4tq2" path="res://scenes/player.tscn" id="3_22jtm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l2lei"]
+albedo_texture = ExtResource("1_lkl68")
+uv1_triplanar = true
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_2x1oj"]
+panorama = ExtResource("2_73rcq")
+
+[sub_resource type="Sky" id="Sky_qkisy"]
+sky_material = SubResource("PanoramaSkyMaterial_2x1oj")
+
+[sub_resource type="Environment" id="Environment_wex1l"]
+background_mode = 2
+sky = SubResource("Sky_qkisy")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="world" type="Node3D"]
+
+[node name="stage" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(20, 1, 20)
+material = SubResource("StandardMaterial3D_l2lei")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.485462, 2.31539, 12.5695)
+use_collision = true
+size = Vector3(20, 1, 20)
+material = SubResource("StandardMaterial3D_l2lei")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="stage"]
+transform = Transform3D(0.933368, 0.353096, 0.0644041, -0.358922, 0.918218, 0.167481, 0, -0.179438, 0.983769, -18.816, -1.86164, 3.54868)
+use_collision = true
+size = Vector3(20.0744, 1, 20)
+material = SubResource("StandardMaterial3D_l2lei")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="stage"]
+transform = Transform3D(0.944946, -0.28125, -0.167257, 0.320825, 0.896895, 0.304385, 0.0644041, -0.341288, 0.93775, -13.3222, 3.77679, 17.1837)
+use_collision = true
+size = Vector3(20.0744, 1, 20)
+material = SubResource("StandardMaterial3D_l2lei")
+
+[node name="lighting" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="lighting"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="lighting"]
+environment = SubResource("Environment_wex1l")
+
+[node name="player" parent="." instance=ExtResource("3_22jtm")]
